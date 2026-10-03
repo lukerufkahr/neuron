@@ -1,6 +1,3 @@
-import matplotlib.pyplot as plt
+from neuron.cli import main
 
-def main() -> None:
-    plt.plot([1,2,3,4])
-    plt.show()
-
+__all__ = ["main"]
