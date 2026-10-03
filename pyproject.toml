@@ -10,7 +10,8 @@ requires-python = ">=3.14"
 dependencies = [
     "matplotlib",
     "scipy",
-    "numpy"
+    "numpy",
+    "scipy-stubs",
 ]
 
 [project.scripts]
