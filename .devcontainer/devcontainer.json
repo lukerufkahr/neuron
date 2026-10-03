@@ -15,8 +15,15 @@
   "remoteUser": "dev",
   "updateRemoteUserUID": false,
   "mounts": [
-    "source=uv-cache,target=/home/dev/.cache/uv,type=volume"
+    "source=uv-cache,target=/home/dev/.cache/uv,type=volume",
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
+    "source=${localEnv:XAUTHORITY},target=/home/dev/.Xauthority,type=bind,readonly"
   ],
+  "containerEnv": {
+    "DISPLAY": "${localEnv:DISPLAY}",
+    "XAUTHORITY": "/home/dev/.Xauthority",
+    "MPLBACKEND": "TkAgg"
+  },
   "postCreateCommand": "if [ -f pyproject.toml ]; then uv sync; else echo 'No pyproject.toml yet - run: uv init'; fi",
   "customizations": {
     "jetbrains": {

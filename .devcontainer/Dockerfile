@@ -5,7 +5,7 @@ ARG USER_UID=1000
 ARG USER_GID=1000
 
 RUN dnf -y install \
-    python3 python3-devel \
+    python3 python3-devel python3-tkinter \
     gcc gcc-c++ make \
     git curl unzip which procps-ng sudo \
     fontconfig freetype libXext libXrender libXtst libXi \
