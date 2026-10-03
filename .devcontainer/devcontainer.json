@@ -1,0 +1,26 @@
+{
+  "name": "python-uv",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "USER_UID": "1000",
+      "USER_GID": "1000"
+    }
+  },
+  "runArgs": [
+    "--userns=keep-id",
+    "--security-opt=label=disable"
+  ],
+  "containerUser": "dev",
+  "remoteUser": "dev",
+  "updateRemoteUserUID": false,
+  "mounts": [
+    "source=uv-cache,target=/home/dev/.cache/uv,type=volume"
+  ],
+  "postCreateCommand": "if [ -f pyproject.toml ]; then uv sync; else echo 'No pyproject.toml yet - run: uv init'; fi",
+  "customizations": {
+    "jetbrains": {
+      "backend": "PyCharm"
+    }
+  }
+}
