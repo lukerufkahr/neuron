@@ -16,6 +16,9 @@ dependencies = [
 
 [project.scripts]
 neuron = "neuron:main"
+neuron-projectile = "neuron.models.projectile:run"
+neuron-pulse = "neuron.models.pulse:run"
+neuron-rc = "neuron.models.rc:run"
 
 [build-system]
 requires = ["uv_build>=0.12.19,<0.13.0"]
