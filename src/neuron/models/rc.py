@@ -3,17 +3,21 @@ import numpy as np
 import scipy as sp
 
 from neuron import plotting
-from neuron.models.pulse import pulse
 
 
 def run() -> None:
 	R = 50
 	C = 2e-6
-	t = np.linspace(0, 10, 1000)
-	signal = sp.signal.square(t * 1 * 2 * np.pi, duty=0.5)
-	vc = np.exp(-1 * t)
-	response = np.convolve(vc, signal, mode="full")
-	fig, ani = plotting.animate_rc(t, response)
+	frequency = 1000
+
+	t = np.linspace(0, 3 * (1 / frequency), 1000)
+	signal = (sp.signal.square(2 * np.pi * frequency * t, duty=0.5) + 1) / 2
+	vc = (R * C) ** (-1) * np.exp(-1 * t / (R * C))
+
+	dt = t[1] - t[0]
+	response = np.convolve(signal, vc, mode="full")[: len(t)] * dt
+
+	plotting.rc(t, response)
 	plt.show()
 
 

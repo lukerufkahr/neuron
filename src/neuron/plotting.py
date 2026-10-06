@@ -51,17 +51,8 @@ def animate_pulse(t: np.ndarray, pulse: np.ndarray) -> tuple[Figure, animation.F
 	return fig, ani
 
 
-def animate_rc(t: np.ndarray, response: np.ndarray) -> tuple[Figure, animation.FuncAnimation]:
+def rc(t: np.ndarray, response: np.ndarray) -> Figure:
 	fig, ax = plt.subplots()
-	line = ax.plot(t[0], response[0])[0]
-	ax.set(xlim=(0, 10), ylim=(-2, 2))
-
-	def update(frame):
-		x = t[:frame]
-		y = response[:frame]
-		data = np.stack([x, y]).T
-		line.set_xdata(t[:frame])
-		line.set_ydata(y[:frame])
-
-	ani = animation.FuncAnimation(fig=fig, func=update, frames=len(t), interval=0.001)
-	return fig, ani
+	line = ax.plot(t, response)
+	ax.grid()
+	return fig
