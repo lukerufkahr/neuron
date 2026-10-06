@@ -56,3 +56,13 @@ def rc(t: np.ndarray, response: np.ndarray) -> Figure:
 	line = ax.plot(t, response)
 	ax.grid()
 	return fig
+
+
+def lif(t: np.ndarray, response: np.ndarray, threshold: float) -> Figure:
+	fig, ax = plt.subplots()
+	ax.plot(t, response)
+	ax.grid()
+	ax.set(xlabel="Time [ms]", ylabel="Membrane potential [mV]")
+	ax.axhline(threshold, color="r", ls="--", label="threshold")
+	ax.legend()
+	return fig
