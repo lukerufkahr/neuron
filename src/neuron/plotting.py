@@ -62,7 +62,7 @@ def lif(t: np.ndarray, response: np.ndarray, threshold: float) -> Figure:
 	fig, ax = plt.subplots()
 	ax.plot(t, response)
 	ax.grid()
-	ax.set(xlabel="Time [ms]", ylabel="Membrane potential [mV]")
+	ax.set(xlabel="Time [s]", ylabel="Membrane potential [V]")
 	ax.axhline(threshold, color="r", ls="--", label="threshold")
 	ax.legend()
 	return fig
