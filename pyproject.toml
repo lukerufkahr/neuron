@@ -1,8 +1,10 @@
 [project]
 name = "neuron"
 version = "0.1.0"
-description = "Add your description here"
+description = "Leaky integrate-and-fire neuron simulation"
 readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
 authors = [
     { name = "Lucas Rufkahr" }
 ]
