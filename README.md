@@ -2,6 +2,8 @@
 
 A leaky integrate-and-fire (LIF) neuron simulation. The membrane potential is driven by a pulsed input current, integrated with Euler's method, and reset to rest when it crosses threshold.
 
+![Membrane potential of the LIF neuron over time](docs/lif.png)
+
 ## Requirements
 
 - Python 3.14
