@@ -8,44 +8,34 @@ import scipy as sp
 
 from neuron import plotting
 from neuron.helper import euler
-
-# Constants
-I = 2e-9  # noqa: E741
-R = 10e6
-C = 1e-9
-tm = R * C
-u_r = -0.065
-threshold_V = -0.05
-frequency = 10
-n_pulses = 2
-n_periods = 4
+from neuron.params import LIFParams
 
 
-def fire(u: np.ndarray) -> np.ndarray:
-	return np.where(u >= threshold_V, u_r, u)
+def fire(u: np.ndarray, p: LIFParams) -> np.ndarray:
+	return np.where(u >= p.threshold_V, p.u_r, u)
 
 
-def current(t: float) -> np.ndarray:
-	if t >= (n_pulses / frequency):
+def current(t: float, p: LIFParams) -> np.ndarray:
+	if t >= (p.n_pulses / p.frequency):
 		signal = np.array([0])
 	else:
-		signal = I * ((sp.signal.square(2 * np.pi * t * frequency, duty=0.5) + 1) / 2)
+		signal = p.I * ((sp.signal.square(2 * np.pi * t * p.frequency, duty=0.5) + 1) / 2)
 	return signal
 
 
-def membrane(t: float, u: np.ndarray) -> np.ndarray:
+def membrane(t: float, u: np.ndarray, p: LIFParams) -> np.ndarray:
 	# f(t, u) = (1/C)I(t) - dU/RC
-	f = (R / tm) * current(t) - (u - u_r) * (1 / tm)
+	f = (p.R / p.tm) * current(t, p) - (u - p.u_r) * (1 / p.tm)
 	return f
 
 
-def run() -> None:
-	t = np.linspace(0, n_periods / frequency, 10000)
-	u0 = np.array([u_r])
+def run(p: LIFParams = LIFParams()) -> None:
+	t = np.linspace(0, p.n_periods / p.frequency, 10000)
+	u0 = np.array([p.u_r])
 
-	u = euler(membrane, u0, t, reset=fire)
+	u = euler(lambda ti, ui: membrane(ti, ui, p), u0, t, reset=lambda ui: fire(ui, p))
 
-	plotting.lif(t, u, threshold_V)
+	plotting.lif(t, u, p.threshold_V)
 	plt.show()
 
 
