@@ -1,3 +1,7 @@
+"""
+matplotlib test model for a projectile
+"""
+
 import matplotlib.pyplot as plt
 import numpy as np
 
